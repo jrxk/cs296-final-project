@@ -26,7 +26,7 @@ for a game or something."
     (print (str "You are " (-> the-map location :title) ". "))
     (when-not ((player :seen) location)
       (print (-> the-map location :desc)))
-    (update-in player [:seen] #(conj % location))))
+    (update-in player [:seen] #(conj % location))))         ; TODO: add more description e.g. To the north is ....
 
 (defn to-keywords [commands]
   (mapv keyword (str/split commands #"[.,?! ]+")))

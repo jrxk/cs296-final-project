@@ -1,6 +1,6 @@
 # CS 296-25 Honors Project
 
-This is my adventure game for CS 296 Fall 2016.
+This is my adventure game, the final project for CS 296 Fall 2016.
 This repository contains the code we did in class.  You can
 use it as a starting point for your own project if you want.
 
