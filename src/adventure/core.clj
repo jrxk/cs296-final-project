@@ -12,8 +12,8 @@ for a game or something."
    :grue-pen {:desc "It is very dark.  You are about to be eaten by a grue."
               :title "in the grue pen"
               :dir {:north :foyer}
-              :contents #{}}
-   })
+              :contents #{}}})
+
 
 (def adventurer
   {:location :foyer
@@ -49,16 +49,19 @@ for a game or something."
          [:south] (go :south player)
 
          _ (do (println "I don't understand you.")
-               player)
+               player)))
 
-         )) 
+
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
+  (println "You wake up in a room with wooden walls wearing an armor. There is a Japanese sword next to you.")
   (loop [local-map the-map
          local-player adventurer]
     (let [pl (status local-player)
           _  (println "What do you want to do?")
           command (read-line)]
-      (recur local-map (respond pl (to-keywords command))))))
+      (if (= command "quit")
+        (println "Exiting...")
+        (recur local-map (respond pl (to-keywords command)))))))
