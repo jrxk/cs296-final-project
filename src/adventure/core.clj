@@ -26,28 +26,31 @@
               :dir {:east :room1
                     :south :hallway0}
               :contents #{"apple"}}
-   :room1    {:desc "There is a door to the west. A window opens to the north. There is a garden out there. The windows is large. There is a table and a bed. On the bed is someone's final exam. There seems to be something under the bed."
+   :room1    {:desc "There is a door to the west. A window opens to the north. There is a garden out there. The window is large. There is a table and a bed. On the bed is someone's final exam. There seems to be something under the bed."
               :title "in a mysterious room."
               :dir {:west :hallway1
                     :north :garden}
               :contents #{"final exam", "hammer", "box"}
               }
-   :garden    {:desc "This is a beautiful garden. Lots of flowers. A fighting robot (probably named Bastion) stands there."
+   :garden    {:desc "A beautiful garden. Lots of flowers. A fighting robot (probably named Bastion) stands."
               :title "in a garden."
               :dir {:south :room1
-                    :east :forest1
                     :north :temple
-                    :west :cornfield}
+                    :west :cornfield
+                    :east :forest1}
               :contents #{"flower"}
                :enemy "robot"
                :enemylevel 0}
+   :forest1    {:desc "This is a dimly lit forest, with large trees all around. "
+               :title "in a forest."
+               :dir {:west :garden}
+               :contents #{}}
    :temple    {:desc "This is the atrium of the temple."
                :title "in temple."
                :dir {:south :garden
                      :east :cliff1
                      :up :temple-2
-                     :west :forest0
-                     :north :cliff2}
+                     :west :forest0}
                :contents #{}}
    :temple-2  {:desc "This is the second floor of the temple. There is a giant beast called Roshan in the north side of this floor. He seems unbeatable."
                :title "on the second floor of the temple."
@@ -56,24 +59,23 @@
                :contents #{}
                :enemy "Roshan"
                :enemylevel 5}
-   :cliff1    {:desc "Below is an abyss. There is nothing. Try not to jump."
-               :title "in a garden."
+   :cliff1    {:desc "To northeast is an abyss. Try not to jump."
+               :title "on a cliff."
                :dir {:west :temple
                      :east :death
                      :down :death
                      :jump :death
                      :north :death}
                :contents #{}}
-   :forest0   {:desc "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here. There is a squirrel under the tree. You wouldn't fight a squirrel, would you?"
+   :forest0   {:desc "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here. There is a squirrel under the tree."
                :title "in a forest."
                :dir {:west :crop-science-building
                      :east :temple
-                     :south :cornfield
-                     :north :forest2}
+                     :south :cornfield}
                :contents #{}
                :enemy "squirrel"
                :enemylevel 10000}
-   :cornfield {:desc "To you south is the building that you just escaped from. It looks like a dorm in a university surrounded by endless corns."
+   :cornfield {:desc "To you south is the building that you just escaped from. It looks like a dorm in a university."
                :title "in a cornfield."
                :dir {:north :forest0
                      :east :garden}
@@ -88,18 +90,17 @@
                :contents #{"corn" "pizza" "soda"}
                }
    :cs225-classroom
-               {:desc "This is the classroom for CS 225 in the Cornfield University. Professor Hinda Ceeren is lecturing. The lecture is super interesting. You decide to pick up a lecturenote."
+               {:desc "This is the classroom for CS 225 in the Cornfield University. Professor Hinda Ceeren is lecturing. The lecture is super interesting. There are some lecturenotes at the entrance."
                 :title "in the CS 225 classroom"
                 :dir {:south :crop-science-building}
                 :contents #{"lecturenote"}
                 }
-   :apartment  {:desc "A nice apartment. It looks a bit old from the outside though. There are snacks and a TV in the living room."
+   :apartment  {:desc "A nice apartment. It looks a bit old from the outside. There are snacks and a TV in the living room."
                 :title "in your apartment."
                 :dir {:east :crop-science-building}
                 :contents #{"snack"}
                 }
-
-   :death    {:desc "As you take your last breath, you feel relieved of your burdens. You only have your soul left."
+   :death      {:desc "As you take your last breath, you feel relieved of your burdens."
               :title "dead"
               :dir {}
               :contents #{"soul"}}
@@ -186,7 +187,7 @@
 (defn read_paper [player]
   (let [inventory (player :inventory)]
     (if (inventory "paper")
-      (do (println "HANAMURA DAILY \n 14/12/16 \nDo not go gentle into that good night,\nOld age should burn and rave at close of day;\nRage, rage against the dying of the light.\n.\n.\n.\nPPAP!\nI have a pen. I have an apple. Ugh! Apple pen!...\nI have a pen. I have pineapple. Ugh! Pineapple pen!...\nApple pen! Pineapple pen!\nUgh!\nPen Pineapple Apple Pen!\n\nThis game is created by Jianfeng Xia using Clojure. The finals went well, but more challenges are yet to come.\nHint: You can use 'quit' to exit this endless loop!")
+      (do (println "HANAMURA DAILY \n 14/12/16 \nDo not go gentle into that good night,\nOld age should burn and rave at close of day;\nRage, rage against the dying of the light.\n.\n.\n.\nPPAP!\nI have a pen. I have an apple. Ugh! Apple pen!...\nI have a pen. I have pineapple. Ugh! Pineapple pen!...\nApple pen! Pineapple pen!\nUgh!\nPen Pineapple Apple Pen!\n\nThis game is created by Jianfeng Xia in Clojure.\nHint: You can use 'quit' to exit this endless loop!")
           player)
       (do (println "You don't have a paper.")
           player))))
@@ -203,7 +204,7 @@
 (defn eat-pizza [player]
   (let [inventory (player :inventory)]
     (if (inventory "pizza")
-      (do (println "You ate the pizza! You didn't hav lunch this morning. It really saves your life.")
+      (do (println "You ate the pizza! You didn't have breakfast this morning. It really saves your life.")
           player)
       (do (println "You don't have a pizza.")
           player))))
@@ -211,7 +212,7 @@
 (defn drink-soda [player]
   (let [inventory (player :inventory)]
     (if (inventory "soda")
-      (do (println "You drank the soda! Be careful, it's bad for you teeth.")
+      (do (println "You feel really thirsty and drank the soda.")
           player)
       (do (println "You don't have a soda.")
           player))))
@@ -229,7 +230,7 @@
       (if (and (inventory "sword") (> playerlevel enemylevel))
          (do (println (str "Of course you can fight a " enemy "! You killed the " enemy " and leveled up! You are now level " playerlevel ". After a about 100 years, the " enemy "respawned. But don't worry, you know you can defeat it!"))
              (assoc-in map-location [:enemy] nil)
-             (if (= enemy "Roshan") (println "Congratulations! You have beaten Roshan! As you know, it respawns every 100 years. So you can wait 100 years to be the hero again! If you're tired, just type 'quit' to exit this endless loop!\n100 years later...................."))
+             (if (= enemy "Roshan") (println "Congratulations! You have beaten Roshan! As you know, it respawns every 100 years. So you can wait 100 years to be the hero again! If you're tired, just type 'quit' to exit this endless loop!\n\n\n100 years later...................."))
              (update-in player [:level] #(inc %)))
          (do (println (str "Sadly, you died fighting this " enemy))
              (assoc-in player [:location] :death))))))
@@ -239,9 +240,10 @@
         map-location (the-map location)
         moved (player :move-bed)]
     (if (= moved 0)
-      (do (println "You have moved the bed. There is a locked box here.")
+      (do (println "You have moved the bed. There is a locked box under the bed.")
           (assoc-in player [:move-bed] 1))
-      (do (println "The bed has been moved.")))))
+      (do (println "The bed has been moved.")
+          player))))
 
 (defn open-box [player]
   (let [inventory (player :inventory)]
@@ -253,7 +255,7 @@
             (do (println "Yay! You opened the box and got a hammer! A handy tool to break a window!")
                 (update-in player [:inventory] #(conj % "hammer"))
                 )
-            (do (println "The password seems incorrect.")
+            (do (println "That didn't work.")
                 player))))
       (do (println "You don't have a box.")
           player))))
@@ -262,7 +264,7 @@
   (let [inventory (player :inventory)
         location (player :location)]
     (if (and (inventory "hammer") (= location :room1) (= (player :break-window) 0))
-      (do (println "You broke the window! A new world is open to you!")
+      (do (println "You broke the window!")
           (assoc-in player [:break-window] 1))
       (do (println "There is no window/You don't have a hammer.")
           player) )))
@@ -270,7 +272,7 @@
 (defn read-lecturenote [player]
   (let [inventory (player :inventory)]
     (if (inventory "lecturenote")
-      (do (println "CS 225 Today's Announcements: \nMP10 Corn growing available. Due 12/25\nExam10: 12/18-12/19")
+      (do (println "CS 225 Today's Announcements: \nMP10 available. Due 12/25\nExam10: 12/18-12/19")
           player)
       (do (println "You don't have the lecturenote.")
           player))))
@@ -278,7 +280,7 @@
 (defn eat-snack [player]
   (let [inventory (player :inventory)]
     (if (inventory "snack")
-      (do (println "Thank you. Nothing is better than this after such a long day.")
+      (do (println "Thank you. It's delicious.")
           player)
       (do (println "You don't have a snack.")
           player))))
